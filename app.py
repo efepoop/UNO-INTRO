@@ -18,12 +18,23 @@ STYLE = r"""
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Chakra+Petch:wght@400;700&family=Urbanist:wght@300;500;700&display=swap');
 :root{ --neon:#00FF6A; --ink:#07150b; --ink-soft:#144323; }
 
+/* Fondo y tipografías */
 [data-testid="stAppViewContainer"]{
   background: linear-gradient(180deg, #b8ffbf, #ccffd6 55%, #eafff0 100%);
   color: var(--ink);
   font-family:'Urbanist', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 [data-testid="stHeader"]{ background: transparent; }
+
+/* Header bar sutil */
+.header-bar {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 14px;
+  margin: 6px auto 12px;
+  background: radial-gradient(900px 200px at 10% 0%, rgba(0,255,106,.22), transparent 70%);
+  box-shadow: 0 0 0 1px rgba(0,255,106,.25);
+}
 
 /* Títulos */
 h1{
@@ -38,17 +49,24 @@ h1{
 }
 .hr{ height:1px; background:linear-gradient(90deg, transparent, rgba(0,255,106,.9), transparent); margin: 20px 0; }
 
+/* Chips */
+.chip {
+  display:inline-block; padding:.28rem .7rem; border:2px solid var(--neon); border-radius:999px;
+  font-family:'Chakra Petch', sans-serif; font-weight:800; letter-spacing:.6px; text-transform:uppercase;
+  background:rgba(0,255,106,.12); color:var(--ink-soft); margin-bottom:8px;
+}
+
 /* Cards */
 .card{
   background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(235,255,243,.92));
   border:1px solid rgba(0,255,106,.35); border-radius:18px; padding:16px;
-  box-shadow:0 8px 24px rgba(0,0,0,.06), 0 0 0 2px rgba(0,255,106,.18);
+  box-shadow:0 8px 24px rgba(0,0,0,.06), 0 0 0 2px rgba(0,255,106,.16);
 }
 
 /* Imagen portada con borde neón */
 .stImage>img{
   display:block; margin:0 auto; border-radius:16px;
-  border:4px solid var(--neon); max-height:440px;
+  border:4px solid var(--neon); max-height:460px;
   box-shadow:0 0 18px rgba(0,255,106,.5), inset 0 0 10px rgba(0,255,106,.45);
   object-fit:cover;
 }
@@ -77,8 +95,9 @@ section[data-testid="stSidebar"] div[role="radiogroup"] label{ font-weight:700; 
 st.markdown(STYLE, unsafe_allow_html=True)
 
 # =============================
-# Hero
+# Header
 # =============================
+st.markdown("<div class='header-bar'></div>", unsafe_allow_html=True)
 st.markdown("<h1>Mi Primera App!!</h1>", unsafe_allow_html=True)
 st.markdown("<div class='subhead'>Ferxxo Vibes · Interfaces multimodales</div>", unsafe_allow_html=True)
 st.markdown("<div class='hr'></div>", unsafe_allow_html=True)
@@ -89,6 +108,7 @@ st.markdown("<div class='hr'></div>", unsafe_allow_html=True)
 left, right = st.columns([1,1])
 
 with left:
+    st.markdown("<div class='chip'>Intro</div>", unsafe_allow_html=True)
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.header("¡Bienvenid@! ✨")
     st.write("En este espacio comienzo a desarrollar mis aplicaciones para **interfaces multimodales**.")
@@ -96,17 +116,19 @@ with left:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with right:
+    st.markdown("<div class='chip'>Portada</div>", unsafe_allow_html=True)
     try:
-        image = Image.open('Interfaces Mult2.png')
-        st.image(image, caption='Interfaces multimodales', use_container_width=True)
+        image = Image.open('ferqui1.jpg')  # ← CAMBIADA AQUÍ
+        st.image(image, caption='Ferxxo vibes · portada', use_container_width=True)
     except Exception:
-        st.info("Sube la imagen 'Interfaces Mult2.png' para mostrar la portada.")
+        st.info("Sube la imagen 'ferqui1.jpg' para mostrar la portada.")
 
 st.markdown("<div class='hr'></div>", unsafe_allow_html=True)
 
 # =============================
 # Entrada de texto
 # =============================
+st.markdown("<div class='chip'>Entrada</div>", unsafe_allow_html=True)
 st.markdown("<div class='card'>", unsafe_allow_html=True)
 st.subheader("Entrada rápida")
 texto = st.text_input('Escribe algo', 'Este es mi texto')
@@ -122,6 +144,7 @@ st.subheader("Sección de prueba (2 columnas)")
 col1, col2 = st.columns(2)
 
 with col1:
+    st.markdown("<div class='chip'>Columna A</div>", unsafe_allow_html=True)
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("Primera columna")
     st.write("Las **interfaces multimodales** mejoran la experiencia de usuario.")
@@ -131,6 +154,7 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
+    st.markdown("<div class='chip'>Columna B</div>", unsafe_allow_html=True)
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("Segunda columna")
     modo = st.radio("¿Cuál es la modalidad principal en tu interfaz?", ('Visual', 'Auditiva', 'Táctil'))
@@ -148,8 +172,8 @@ st.markdown("<div class='hr'></div>", unsafe_allow_html=True)
 # Botón + Select
 # =============================
 st.subheader("Acciones rápidas")
-
 st.markdown("<div class='card'>", unsafe_allow_html=True)
+
 if st.button('Presiona el botón'):
     st.write('¡Gracias por presionar!')
 else:
